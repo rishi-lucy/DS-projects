@@ -1,5 +1,16 @@
 import pandas as pd
-url = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
-df = pd.read_csv(url)
-df.to_csv("iris_output.csv", index=False)
-print("Data has been saved to iris_output.csv")
+
+index = pd.MultiIndex.from_tuples(
+    [("Engineering", "CSE"), ("Engineering", "ECE"),
+     ("Science", "Physics"), ("Science", "Chemistry")],
+    names=["Department", "Branch"]
+)
+data = pd.DataFrame({"2025": [85, 78, 92, 88], "2026": [90, 82, 95, 91]}, index=index)
+
+print("Original Data:")
+print(data)
+unstacked = data.unstack()
+print("\nAfter unstack():")
+print(unstacked)
+print("\nAfter stack():")
+print(unstacked.stack())
